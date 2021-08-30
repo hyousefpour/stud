@@ -7,6 +7,7 @@ from django.db import models
 class User(models.Model):
     username = models.IntegerField(unique=True, null=False, primary_key=True, verbose_name="کدکاربری")
     password = models.CharField(max_length=100, null=False, verbose_name="رمز ورود")
+    slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس کاربر")
     firstname = models.CharField(max_length=70, null=True, verbose_name="نام")
     lastname = models.CharField(max_length=70, null=True, verbose_name="نام خانوادگی")
     mobil = models.CharField(max_length=50, null=True, verbose_name='شماره تلفن همراه')
@@ -24,6 +25,7 @@ class User(models.Model):
 class message(models.Model):
     stu_no = models.IntegerField(null=True, verbose_name='شماره دانشجویی')
     title = models.CharField(max_length=250, blank=True, verbose_name="عنوان پیام")
+    namefile = models.CharField(max_length=250, blank=True, verbose_name="نام فایل")
     upload = models.FileField(upload_to="media", blank=True, verbose_name='ارسال فایل')
     slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس پیام")
     contentmsg = models.TextField(verbose_name="متن پیام")
@@ -48,19 +50,19 @@ class message(models.Model):
     #     return reverse("account:news")
 
 
-class uploadfile(models.Model):
-    stu_no = models.IntegerField(null=True, verbose_name='شماره دانشجویی')
-    title = models.CharField(max_length=250, blank=True, verbose_name="عنوان فایل")
-    upload = models.FileField(upload_to="media", blank=True, verbose_name='ارسال فایل')
-    slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس فایل")
-    publish = models.DateTimeField(default=timezone.now, verbose_name="زمان انتشار")
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = "فایل"
-        verbose_name_plural = "فایل ها"
-        # ordering = ['stu_no']
-
-    def __str__(self):
-        return self.stu_no
+# class uploadfile(models.Model):
+#     stu_no = models.IntegerField(null=True, verbose_name='شماره دانشجویی')
+#     title = models.CharField(max_length=250, blank=True, verbose_name="عنوان فایل")
+#     upload = models.FileField(upload_to="media", blank=True, verbose_name='ارسال فایل')
+#     slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس فایل")
+#     publish = models.DateTimeField(default=timezone.now, verbose_name="زمان انتشار")
+#     created = models.DateTimeField(auto_now_add=True)
+#     updated = models.DateTimeField(auto_now=True)
+#
+#     class Meta:
+#         verbose_name = "فایل"
+#         verbose_name_plural = "فایل ها"
+#         # ordering = ['stu_no']
+#
+#     def __str__(self):
+#         return self.stu_no
